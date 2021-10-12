@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class BulletBoard {
+public class PostEntry {
     private Double COORDINATELLC = 0.0;
     private Double HEIGHT = 0.0;
     private Double WIDTH = 0.0;

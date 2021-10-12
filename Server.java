@@ -1,24 +1,31 @@
-import java.io.*;
-import java.net.*;
 import java.util.*;
+import java.net.*;
+import java.io.*;
 
 public class Server {
     public static void main(String[] args) throws IOException {
-        int port;
-        if (args.length == 0) {
-            port = 3000;
-        } else {
-            port = Integer.parseInt(args[0]);
-        }
-        ArrayList<BulletBoard> bulletBoards = new ArrayList<BulletBoard>();
+        int port = 3000;
+        ArrayList<PostEntry> entries = new ArrayList<PostEntry>();
         ServerSocket serverSocket = new ServerSocket(port);
-        System.out.println("Server is running on port: " + port);
-        System.out.println("IP Address: " + InetAddress.getLocalHost().getHostAddress());
-        System.out.println("Waiting for people to join...");
-
+        System.out.println("Server is listening on port " + port);
+        System.out.println("IP Address for the server is " + InetAddress.getLocalHost().getHostAddress());
+        // DataInputStream dataInputStream;
+        Socket clientSocket;
+        // clientSocket = serverSocket.accept();
+        // dataInputStream = new DataInputStream(clientSocket.getInputStream());
         while (true) {
-            Socket clientSocket = serverSocket.accept();
-            ServerThread thread = new ServerThread(clientSocket, Thread.activeCount() + "", bulletBoards);
+            clientSocket = serverSocket.accept();
+            ServerThread thread = new ServerThread(Thread.activeCount() + "", clientSocket);
+            thread.start();
+            System.out.println("Connection detected, starting server thread [" + (Thread.activeCount() - 1) + "]");
+            System.out.println("Active connections: " + (Thread.activeCount() - 1));
+            // String clientInputMessage = dataInputStream.readUTF();
+            // System.out.println("Client: " + clientInputMessage);
+            // if (clientInputMessage.equals("break")) {
+            // break;
+            // }
         }
+        // dataInputStream.close();
+        // clientSocket.close();
     }
 }

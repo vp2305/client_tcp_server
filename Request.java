@@ -1,3 +1,4 @@
+
 public enum Request {
-    GET, POST, CLEAR, SHAKE
+    POST, GET, UPDATE, CLEAR, SHAKE
 }
